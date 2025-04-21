@@ -21,6 +21,8 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+
+vim.opt.number = true  -- Relative line numbers
 vim.opt.relativenumber = true  -- Relative line numbers
 
 vim.cmd("set expandtab")
