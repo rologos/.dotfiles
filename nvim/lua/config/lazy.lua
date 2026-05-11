@@ -31,11 +31,11 @@ vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
 
 -- center on vertical movement
-vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+-- center on movement, but not in insert mode
+vim.api.nvim_create_autocmd("CursorMoved", {
   pattern = "*",
   callback = function()
-    -- Only center if we are moving vertically
-    vim.cmd("norm! zz")
+    vim.cmd("normal! zz")
   end,
 })
 
