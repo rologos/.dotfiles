@@ -30,6 +30,15 @@ vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
 
+-- center on vertical movement
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+  pattern = "*",
+  callback = function()
+    -- Only center if we are moving vertically
+    vim.cmd("norm! zz")
+  end,
+})
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
@@ -44,3 +53,8 @@ require("lazy").setup({
 })
 
 vim.keymap.set('n', '<C-n>', ':Neotree filesystem reveal left<CR>',{})
+-- Normal mode: Insert date at cursor
+vim.keymap.set('n', '<F5>', function()
+    local date = os.date("%m/%d/%Y")
+    vim.api.nvim_put({date}, "c", true, true)
+end, { desc = 'Insert date via Lua' })
