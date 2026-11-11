@@ -3,7 +3,7 @@ return {
     config = function()
         require('lualine').setup({
             options = {
-                theme = 'dracula'
+                theme = 'catppuccin-macchiato'
             },
             sections = {
                 lualine_x = { "encoding", { "fileformat", symbols = { unix = "" } }, "filetype" },

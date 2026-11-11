@@ -30,12 +30,28 @@ vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
 
--- center on vertical movement
--- center on movement, but not in insert mode
-vim.api.nvim_create_autocmd("CursorMoved", {
-  pattern = "*",
+-- keep the cursor line centered (cheaper than running zz on every CursorMoved)
+vim.opt.scrolloff = 999
+
+-- looks
+vim.opt.termguicolors = true
+vim.opt.cursorline = true
+vim.opt.signcolumn = "yes"   -- no text jumping when diagnostics appear
+vim.opt.winborder = "rounded" -- rounded borders on hover/diagnostic floats
+vim.opt.pumborder = "rounded" -- 0.12: border on the completion menu
+
+-- undo: keep history across sessions (stored in ~/.local/state/nvim/undo)
+vim.opt.undofile = true
+vim.opt.undolevels = 10000
+
+-- 0.12 built-in visual undo tree; moving the cursor in it travels through history
+vim.cmd.packadd("nvim.undotree")
+vim.keymap.set("n", "<leader>u", "<cmd>Undotree<CR>", { desc = "Toggle undo tree" })
+
+-- briefly highlight yanked text
+vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
-    vim.cmd("normal! zz")
+    vim.hl.on_yank({ timeout = 200 })
   end,
 })
 
