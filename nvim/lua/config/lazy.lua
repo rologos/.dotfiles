@@ -40,6 +40,14 @@ vim.opt.signcolumn = "yes"   -- no text jumping when diagnostics appear
 vim.opt.winborder = "rounded" -- rounded borders on hover/diagnostic floats
 vim.opt.pumborder = "rounded" -- 0.12: border on the completion menu
 
+-- 0.12 built-in completion as you type
+-- sources: LSP via omnifunc, then words from this buffer, windows, buffers (5 each)
+vim.opt.autocomplete = true
+vim.opt.complete = "o,.^5,w^5,b^5,u^5"
+vim.opt.completeopt = "menuone,noselect,popup"
+vim.keymap.set("i", "<Tab>", function() return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>" end, { expr = true })
+vim.keymap.set("i", "<S-Tab>", function() return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>" end, { expr = true })
+
 -- undo: keep history across sessions (stored in ~/.local/state/nvim/undo)
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
